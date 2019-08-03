@@ -7,7 +7,7 @@
     tools:context=".InsertActivity">
 
     <EditText
-        android:id="@+id/textTitle"
+        android:id="@+id/text_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/text_margin_standard"
@@ -19,24 +19,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/textPrice"
+        android:id="@+id/text_price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:inputType="numberDecimal"
         android:hint="@string/price_hint"
-        app:layout_constraintEnd_toEndOf="@+id/textTitle"
-        app:layout_constraintStart_toStartOf="@+id/textTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+        app:layout_constraintEnd_toEndOf="@+id/text_title"
+        app:layout_constraintStart_toStartOf="@+id/text_title"
+        app:layout_constraintTop_toBottomOf="@+id/text_title" />
 
     <EditText
-        android:id="@+id/textDescription"
+        android:id="@+id/text_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="@string/description_hint"
-        app:layout_constraintEnd_toEndOf="@+id/textPrice"
+        app:layout_constraintEnd_toEndOf="@+id/text_price"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/textPrice"
-        app:layout_constraintTop_toBottomOf="@+id/textPrice" />
+        app:layout_constraintStart_toStartOf="@+id/text_price"
+        app:layout_constraintTop_toBottomOf="@+id/text_price" />
 </androidx.constraintlayout.widget.ConstraintLayout>
