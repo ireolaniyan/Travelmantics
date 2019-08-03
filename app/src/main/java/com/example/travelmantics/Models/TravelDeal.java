@@ -1,6 +1,6 @@
 package com.example.travelmantics.Models;
 
-public class TravelDeals {
+public class TravelDeal {
     private String id, title, price, description, imageUrl;
 
     public String getId() {
@@ -43,7 +43,7 @@ public class TravelDeals {
         this.imageUrl = imageUrl;
     }
 
-    public TravelDeals(String id, String title, String price, String description, String imageUrl) {
+    public TravelDeal(String title, String price, String description, String imageUrl) {
         this.id = id;
         this.title = title;
         this.price = price;

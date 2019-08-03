@@ -8,7 +8,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.travelmantics.Models.TravelDeal;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -34,7 +36,33 @@ public class InsertActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.save_menu:
+                saveDeal();
+                Toast.makeText(this, "Deal saved", Toast.LENGTH_LONG).show();
+                cleanEditText();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void cleanEditText() {
+        textTitle.setText("");
+        textPrice.setText("");
+        textDescription.setText("");
+        textTitle.requestFocus();
+    }
+
+    private void saveDeal() {
+        String title = textTitle.getText().toString();
+        String price = textPrice.getText().toString();
+        String description = textDescription.getText().toString();
+
+        TravelDeal deal = new TravelDeal(title, price, description, "");
+
+        mDatabaseReference.push().setValue(deal);
     }
 
     @Override
