@@ -50,6 +50,24 @@ public class DealActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        Show Save Menu
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.save_menu, menu);
+
+        if (FirebaseUtil.isAdmin) {
+            menu.findItem(R.id.delete_menu).setVisible(true);
+            menu.findItem(R.id.save_menu).setVisible(true);
+            enableEditTexts(true);
+        } else {
+            menu.findItem(R.id.delete_menu).setVisible(false);
+            menu.findItem(R.id.save_menu).setVisible(false);
+            enableEditTexts(false);
+        }
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save_menu:
@@ -102,11 +120,11 @@ public class DealActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        Show Save Menu
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.save_menu, menu);
-        return true;
+
+    private void enableEditTexts(boolean isEnabled) {
+        textTitle.setEnabled(isEnabled);
+        textDescription.setEnabled(isEnabled);
+        textPrice.setEnabled(isEnabled);
     }
+
 }

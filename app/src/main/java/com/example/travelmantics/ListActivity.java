@@ -16,33 +16,26 @@ import com.example.travelmantics.Utils.FirebaseUtil;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class ListActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_list);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.list_activity_menu, menu);
+
+        MenuItem insertMenu = menu.findItem(R.id.insert_menu);
+        if (FirebaseUtil.isAdmin) {
+            insertMenu.setVisible(true);
+        } else {
+            insertMenu.setVisible(false);
+        }
         return true;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        FirebaseUtil.detachlistener();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        FirebaseUtil.openFbReference("traveldeals", this);
-        RecyclerView recyclerViewDeals = findViewById(R.id.rv_deals);
-        final DealAdapter dealAdapter = new DealAdapter();
-        recyclerViewDeals.setAdapter(dealAdapter);
-
-        LinearLayoutManager dealsLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        recyclerViewDeals.setLayoutManager(dealsLayoutManager);
-        FirebaseUtil.attachlistener();
     }
 
     @Override
@@ -60,18 +53,37 @@ public class ListActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 Log.d("Logout", "user Logged Out");
 //                                Go back to login page
-                                FirebaseUtil.attachlistener();
+                                FirebaseUtil.attachListener();
                             }
                         });
-                FirebaseUtil.detachlistener();
+                FirebaseUtil.detachListener();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+    protected void onPause() {
+        super.onPause();
+        FirebaseUtil.detachListener();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseUtil.openFbReference("traveldeals", this);
+        RecyclerView recyclerViewDeals = findViewById(R.id.rv_deals);
+        final DealAdapter dealAdapter = new DealAdapter();
+        recyclerViewDeals.setAdapter(dealAdapter);
+
+        LinearLayoutManager dealsLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        recyclerViewDeals.setLayoutManager(dealsLayoutManager);
+        FirebaseUtil.attachListener();
+    }
+
+    public void showMenu() {
+//        Tell the android system that contents of the menu have changed and it should be redrawn
+        invalidateOptionsMenu();
+    }
+
 }
