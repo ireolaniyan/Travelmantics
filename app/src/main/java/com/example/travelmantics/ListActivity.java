@@ -11,12 +11,34 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.travelmantics.Utils.FirebaseUtil;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class ListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.list_activity_menu, menu);
         return true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseUtil.detachlistener();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseUtil.openFbReference("traveldeals", this);
+        RecyclerView recyclerViewDeals = findViewById(R.id.rv_deals);
+        final DealAdapter dealAdapter = new DealAdapter();
+        recyclerViewDeals.setAdapter(dealAdapter);
+
+        LinearLayoutManager dealsLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        recyclerViewDeals.setLayoutManager(dealsLayoutManager);
+        FirebaseUtil.attachlistener();
     }
 
     @Override
@@ -34,12 +56,5 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-
-        RecyclerView recyclerViewDeals = findViewById(R.id.rv_deals);
-        final DealAdapter dealAdapter = new DealAdapter();
-        recyclerViewDeals.setAdapter(dealAdapter);
-
-        LinearLayoutManager dealsLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        recyclerViewDeals.setLayoutManager(dealsLayoutManager);
     }
 }
