@@ -1,6 +1,8 @@
 package com.example.travelmantics.Models;
 
-public class TravelDeal {
+import java.io.Serializable;
+
+public class TravelDeal implements Serializable {
     private String id, title, price, description, imageUrl;
 
     public String getId() {

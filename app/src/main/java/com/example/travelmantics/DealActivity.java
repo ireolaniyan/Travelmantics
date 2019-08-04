@@ -3,6 +3,7 @@ package com.example.travelmantics;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +22,7 @@ public class DealActivity extends AppCompatActivity {
     private EditText textTitle;
     private EditText textPrice;
     private EditText textDescription;
+    private TravelDeal deal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,17 @@ public class DealActivity extends AppCompatActivity {
         textTitle = findViewById(R.id.edit_text_title);
         textPrice = findViewById(R.id.edit_text_price);
         textDescription = findViewById(R.id.edit_text_description);
+
+        Intent intent = getIntent();
+        TravelDeal deal = (TravelDeal) intent.getSerializableExtra("Deal");
+        if (deal == null) {
+            deal = new TravelDeal();
+        }
+        this.deal = deal;
+
+        textTitle.setText(deal.getTitle());
+        textDescription.setText(deal.getDescription());
+        textPrice.setText(deal.getPrice());
     }
 
     @Override
