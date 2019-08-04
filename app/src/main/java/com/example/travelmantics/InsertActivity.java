@@ -31,9 +31,9 @@ public class InsertActivity extends AppCompatActivity {
         mFirebaseDatabase = FirebaseUtil.mFirebaseDatabase;
         mDatabaseReference = FirebaseUtil.mDatabaseReference;
 
-        textTitle = findViewById(R.id.text_title);
-        textPrice = findViewById(R.id.text_price);
-        textDescription = findViewById(R.id.text_description);
+        textTitle = findViewById(R.id.edit_text_title);
+        textPrice = findViewById(R.id.edit_text_price);
+        textDescription = findViewById(R.id.edit_text_description);
     }
 
     @Override
