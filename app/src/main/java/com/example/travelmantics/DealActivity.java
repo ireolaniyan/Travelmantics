@@ -56,6 +56,13 @@ public class DealActivity extends AppCompatActivity {
                 saveDeal();
                 Toast.makeText(this, "Deal saved", Toast.LENGTH_LONG).show();
                 cleanEditText();
+                backToList();
+                return true;
+
+            case R.id.delete_menu:
+                deleteDeal();
+                Toast.makeText(this, "Deal deleted", Toast.LENGTH_LONG).show();
+                backToList();
                 return true;
 
             default:
@@ -71,13 +78,28 @@ public class DealActivity extends AppCompatActivity {
     }
 
     private void saveDeal() {
-        String title = textTitle.getText().toString();
-        String price = textPrice.getText().toString();
-        String description = textDescription.getText().toString();
+        deal.setTitle(textTitle.getText().toString());
+        deal.setDescription(textPrice.getText().toString());
+        deal.setPrice(textDescription.getText().toString());
 
-        TravelDeal deal = new TravelDeal(title, price, description, "");
+        if (deal.getId() == null) {
+            mDatabaseReference.push().setValue(deal);
+        } else {
+            mDatabaseReference.child(deal.getId()).setValue(deal);
+        }
+    }
 
-        mDatabaseReference.push().setValue(deal);
+    private void deleteDeal() {
+        if (deal == null) {
+            Toast.makeText(this, "Please save the note before you delete it", Toast.LENGTH_LONG).show();
+            return;
+        }
+        mDatabaseReference.child(deal.getId()).removeValue();
+    }
+
+    private void backToList() {
+        Intent intent = new Intent(this, ListActivity.class);
+        startActivity(intent);
     }
 
     @Override
