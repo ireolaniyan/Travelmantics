@@ -43,6 +43,8 @@ public class TravelDeal {
         this.imageUrl = imageUrl;
     }
 
+    public TravelDeal() {}
+
     public TravelDeal(String title, String price, String description, String imageUrl) {
         this.id = id;
         this.title = title;
