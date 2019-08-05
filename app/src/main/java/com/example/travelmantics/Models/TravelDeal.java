@@ -3,7 +3,21 @@ package com.example.travelmantics.Models;
 import java.io.Serializable;
 
 public class TravelDeal implements Serializable {
-    private String id, title, price, description, imageUrl;
+    private String id;
+    private String title;
+    private String price;
+    private String description;
+    private String imageUrl;
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    private String imageName;
 
     public String getId() {
         return id;
@@ -47,11 +61,12 @@ public class TravelDeal implements Serializable {
 
     public TravelDeal() {}
 
-    public TravelDeal(String title, String price, String description, String imageUrl) {
-        this.id = id;
-        this.title = title;
-        this.price = price;
-        this.description = description;
-        this.imageUrl = imageUrl;
+    public TravelDeal(String title, String price, String description, String imageUrl, String imageName) {
+        this.setId(id);
+        this.setTitle(title);
+        this.setPrice(price);
+        this.setDescription(description);
+        this.setImageUrl(imageUrl);
+        this.setImageName(imageName);
     }
 }
